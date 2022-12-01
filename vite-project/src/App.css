@@ -1,0 +1,39 @@
+.text-center{
+  text-align: center;
+
+  font-family: Arial;
+  font-size: 20px;
+}
+.formulario{
+  display: flex;
+  flex-direction: column;
+  background-color: #FFF5EE;
+  border-radius: 15px;
+
+  padding: 20px;
+  margin: 20vh auto;
+  width: 500px;
+
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+#nome,#senha{
+  height: 20px;
+  width: 250px;
+  margin: auto;
+  padding: 3px;
+
+  border: 2px solid black;
+  border-radius: 5px;
+}
+#btn{
+  height: 40px;
+  width: 90px;
+  margin: auto;
+  padding: 3px;
+
+  border: 2px solid #363636;
+  border-radius: 5px;
+
+  cursor: pointer;
+  transform: 1.1px;
+}
