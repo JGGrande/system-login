@@ -9,10 +9,9 @@ import axios from 'axios';
 
 const validationPost = yup.object({
   email: yup.string().required("Campo email não pode estar vazio!"),
-  password: yup.string().required("Campo senha não pode estar vazio!"),
 }).required();
 
-function App() {
+function Forgot_password() {
 
   const [user, setUser] = useState("")
   const [errorMensagem, setErrorMensagem] = useState("")
@@ -20,14 +19,11 @@ function App() {
   const { register, handleSubmit, formState: { errors } } = useForm({
     resolver: yupResolver(validationPost)
   })
-  const addPost = data => axios.post("http://localhost:3000/auth/authenticate", data)
-    .then(async (body) => {
-      await setUser(body.data.user.name)
-      await console.log(body.data.user.name)
-      window.location.href = `/home/${body.data.user.name}`
+  const addPost = data => axios.post("http://localhost:3000/auth/forgot_password", data)
+    .then((body) => {
+      window.location.href = '/reset_password'
     })
     .catch((body) => {
-      document.querySelector("#textResetPassword").style.display = 'block'
       setErrorMensagem(body.response.data.error)
       console.log(data)
     })
@@ -37,13 +33,15 @@ function App() {
 
   return (
     <>
-      <h1><strong>Login</strong></h1>
+      <h1><strong>Recuperar Senha</strong></h1>
       <div className='card-post'>
         <div className='line-post'></div>
 
         <div className='card-body-post'>
 
           <form onSubmit={handleSubmit(addPost)}>
+
+            <h2>Digite seu Email:</h2>
 
             <h2>{errorMensagem}</h2>
 
@@ -54,17 +52,9 @@ function App() {
               <p className='error-message'>{errors.email?.message}</p>
             </div>
 
-            <div className='fields'>
-              <label>Senha:</label>
-              <br />
-              <input type="password" className='campo' name='password' {...register("password")} />
-              <p className='error-message'>{errors.password?.message}</p>
-            </div>
-
-            <p id='textResetPassword'><a href="/forgot_password">Esqueci minha senha</a></p>
 
             <div className='btn-post'>
-              <button type='submit' className='btn'>Entrar</button>
+              <button type='submit' className='btn'>Enviar</button>
             </div>
 
 
@@ -81,6 +71,6 @@ function App() {
   )
 }
 
-export default App
+export default Forgot_password
 
 

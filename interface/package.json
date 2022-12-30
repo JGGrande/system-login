@@ -9,8 +9,14 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@hookform/resolvers": "^2.9.10",
+    "axios": "^1.2.1",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "react-hook-form": "^7.41.0",
+    "react-modal": "^3.16.1",
+    "react-router-dom": "^6.6.1",
+    "yup": "^0.32.11"
   },
   "devDependencies": {
     "@types/react": "^18.0.24",

@@ -9,25 +9,22 @@ import axios from 'axios';
 
 const validationPost = yup.object({
   email: yup.string().required("Campo email não pode estar vazio!"),
+  token: yup.string().required("Campo token não pode estar vazio!"),
   password: yup.string().required("Campo senha não pode estar vazio!"),
 }).required();
 
-function App() {
+function Reset_password() {
 
-  const [user, setUser] = useState("")
   const [errorMensagem, setErrorMensagem] = useState("")
 
   const { register, handleSubmit, formState: { errors } } = useForm({
     resolver: yupResolver(validationPost)
   })
-  const addPost = data => axios.post("http://localhost:3000/auth/authenticate", data)
-    .then(async (body) => {
-      await setUser(body.data.user.name)
-      await console.log(body.data.user.name)
-      window.location.href = `/home/${body.data.user.name}`
+  const addPost = data => axios.post("http://localhost:3000/auth/reset_password", data)
+    .then((body) => {
+      window.location.href = '/'
     })
     .catch((body) => {
-      document.querySelector("#textResetPassword").style.display = 'block'
       setErrorMensagem(body.response.data.error)
       console.log(data)
     })
@@ -37,13 +34,15 @@ function App() {
 
   return (
     <>
-      <h1><strong>Login</strong></h1>
+      <h1><strong>Resetar Senha</strong></h1>
       <div className='card-post'>
         <div className='line-post'></div>
 
         <div className='card-body-post'>
 
           <form onSubmit={handleSubmit(addPost)}>
+
+            <h2>Digites seus dados e o token que foi enviado por email</h2>
 
             <h2>{errorMensagem}</h2>
 
@@ -55,23 +54,28 @@ function App() {
             </div>
 
             <div className='fields'>
-              <label>Senha:</label>
+              <label>Token:</label>
+              <br />
+              <input type="text" className='campo' name='token' {...register("token")} />
+              <p className='error-message'>{errors.token?.message}</p>
+            </div>
+
+            <div className='fields'>
+              <label>Nova Senha:</label>
               <br />
               <input type="password" className='campo' name='password' {...register("password")} />
               <p className='error-message'>{errors.password?.message}</p>
             </div>
 
-            <p id='textResetPassword'><a href="/forgot_password">Esqueci minha senha</a></p>
 
             <div className='btn-post'>
-              <button type='submit' className='btn'>Entrar</button>
+              <button type='submit' className='btn'>Enviar</button>
             </div>
 
 
           </form>
 
           <br />
-          <p>Não tem uma conta ainda ? Crie uma agora <a href="/register">clicando aqui</a></p>
 
         </div>
 
@@ -81,6 +85,6 @@ function App() {
   )
 }
 
-export default App
+export default Reset_password
 
 
